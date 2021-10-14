@@ -1,5 +1,7 @@
 window.onload = () => {
-
+    if (typeof (DeviceMotionEvent) !== "undefined" && typeof (DeviceMotionEvent.requestPermission) === "function") {
+        DeviceOrientationEvent.requestPermission()
+    }
 
     const button = document.querySelector('button[data-action="change"]');
     button.innerText = '﹖';
