@@ -1,8 +1,18 @@
 window.onload = () => {
+
+
     const button = document.querySelector('button[data-action="change"]');
     button.innerText = '﹖';
 
     let places = staticLoadPlaces();
+    if ("geolocation" in navigator) {
+        navigator.geolocation.getCurrentPosition(function (position) {
+            places[0].location.lat = position.coords.latitude;
+            places[0].location.lng = position.coords.longitude;
+            console.log(position.coords);
+        });
+
+    }
     renderPlaces(places);
 };
 
@@ -19,7 +29,7 @@ function staticLoadPlaces() {
 
 var models = [{
         url: './assets/magnemite/scene.gltf',
-        scale: '0.5 0.5 0.5',
+        scale: '0.9 0.9 0.9',
         info: 'Magnemite, Lv. 5, HP 10/10',
         rotation: '0 180 0',
     },
@@ -69,7 +79,7 @@ function renderPlaces(places) {
 
         setModel(models[modelIndex], model);
 
-        model.setAttribute('animation-mixer', '');
+        // model.setAttribute('animation-mixer', '');
 
         document.querySelector('button[data-action="change"]').addEventListener('click', function () {
             var entity = document.querySelector('[gps-entity-place]');
